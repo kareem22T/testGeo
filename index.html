@@ -22,16 +22,17 @@
 
             const markup = "latitude: " + lat + ", longitude: " + lng
 
-            document.getElementById('position').innerHTML += markup + "<br>";
+            document.getElementById('position').innerHTML += markup;
 
-            let formData = new FormData();
-            formData.append('lat', lat)
-            formData.append('lng', lng)
+            let formData = {
+                lat: lat,
+                lng: lng
+            }
 
             $.ajax({
                 url: 'http://kareem-test-dev.atwebpages.com/',
                 method: 'POST',
-                data: {formData},
+                data: formData,
                 success: function () {
                     document.getElementById('position').innerHTML += 'done';
                 },
