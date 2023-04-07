@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test geolocation </title>
+</head>
+<body>
+    
+    <div id="position"></div>
+
+    <script>
+        if (!navigator.geolocation) {
+            throw new Error("No geolocation available")
+        }
+
+        function success(pos) {
+            let lat = pos.coords.latitude;
+            let lng = pos.coords.longitude;
+
+            const markup = "latitude: ${lat}, longitude: ${lng}"
+
+            document.getElementById('position').innerHTML = markup;
+        }
+
+        function error(err) {
+            console.log(err)
+        }
+
+        function options () {
+
+        }
+
+        navigator.geolocation.watchPosition(success, error, options)
+    </script>
+</body>
+</html>
