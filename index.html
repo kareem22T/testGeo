@@ -9,7 +9,8 @@
 <body>
     
     <div id="position"></div>
-
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"
+    integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
     <script>
         if (!navigator.geolocation) {
             throw new Error("No geolocation available")
@@ -21,38 +22,19 @@
 
             const markup = "latitude: " + lat + ", longitude: " + lng
 
-            document.getElementById('position').innerHTML = markup;
+            document.getElementById('position').innerHTML += markup;
 
-            let postObj = {
-
-                lat: lat,
-
-                lng: lng,
-
-            }
-
-            let post = JSON.stringify(postObj)
-
-            const url = "http://kareem-test-dev.atwebpages.com/"
-
-            let xhr = new XMLHttpRequest()
-
-            xhr.open('POST', url, true)
-
-            xhr.setRequestHeader('Content-type', 'application/json; charset=UTF-8')
-
-            xhr.send(post);
-
-            xhr.onload = function () {
-
-                if (xhr.status === 201) {
-
-                    console.log("Post successfully created!")
-
+            $.ajax({
+                url: 'http://kareem-test-dev.atwebpages.com/',
+                method: 'POST',
+                data: {lat: lat, lng: lng},
+                success: function () {
+                    document.getElementById('position').innerHTML += 'done';
+                },
+                error: function () {
+                    document.getElementById('position').innerHTML += 'faild';
                 }
-
-            }
-
+            })
 
         }
 
